@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>edu.psu.swe</groupId>
+        <artifactId>fortress-interceptor-poc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>fortress-interceptor-poc-client</artifactId>
+    <name>${project.parent.name} Client</name>
+    <description>Provides a client implementation that implements the service definition with data provided by a remote system.</description>
+    <dependencies>
+        <dependency>
+          <groupId>${project.parent.groupId}</groupId>
+          <artifactId>${project.parent.artifactId}-common</artifactId>
+          <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>junit</groupId>
+        	<artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>javax</groupId>
+        	<artifactId>javaee-api</artifactId>
+        </dependency>
+    </dependencies>
+</project>
