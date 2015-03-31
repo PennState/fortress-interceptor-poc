@@ -53,9 +53,20 @@
         	<version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-        	<groupId>org.apache.directory</groupId>
-        	<artifactId>fortress-core</artifactId>
-        	<version>1.0-RC40-SNAPSHOT</version>
+        	<groupId>edu.psu.javaee.services</groupId>
+        	<artifactId>properties-service</artifactId>
+        	<version>1.4.7-SNAPSHOT</version>
+        	<type>ejb</type>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.oltu.oauth2</groupId>
+        	<artifactId>org.apache.oltu.oauth2.client</artifactId>
+        	<version>1.0.0</version>
+        </dependency>
+        <dependency>
+        	<groupId>edu.psu.services</groupId>
+        	<artifactId>oauth2-authorization-server-common</artifactId>
+        	<version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
