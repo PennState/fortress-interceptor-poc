@@ -34,6 +34,7 @@ public class Oauth2Authenticator implements ContainerRequestFilter
   private HttpServletRequest request_;
   
   private String authEnpoint_;
+  private String applicationName_;
   
   @Override
   public void filter(ContainerRequestContext requestContext) throws IOException
@@ -52,7 +53,10 @@ public class Oauth2Authenticator implements ContainerRequestFilter
                           .get(TokenInfoDto.class);
       
       //TODO - What do we do here?  The DTO has the application, should we use it somehow?
-
+      if (!dto.getScopes().contains(applicationName_))
+      {
+        requestContext.abortWith(Response.status(Status.FORBIDDEN).build());
+      }
     }
     catch(WebApplicationException exception)
     {
@@ -73,5 +77,6 @@ public class Oauth2Authenticator implements ContainerRequestFilter
     PropertiesService propertiesService = PropertyServiceFactory.getService();
     Properties properties = propertiesService.getProperties("oauth2.properties");
     authEnpoint_ = properties.getProperty("oauth2.authorization.server.endpoint");
+    applicationName_ = properties.getProperty("oauth2.authorization.application.name");
   }
 }
