@@ -55,18 +55,18 @@ public class Oauth2Authenticator implements ContainerRequestFilter
       //TODO - What do we do here?  The DTO has the application, should we use it somehow?
       if (!dto.getScopes().contains(applicationName_))
       {
-        requestContext.abortWith(Response.status(Status.FORBIDDEN).build());
+        requestContext.abortWith(Response.status(Status.UNAUTHORIZED).build());
       }
     }
     catch(WebApplicationException exception)
     {
-      if (exception.getResponse().getStatusInfo().equals(Status.NOT_FOUND))
+      if (exception.getResponse().getStatusInfo().equals(Status.UNAUTHORIZED))
       {
-        throw new WebApplicationException(Response.status(Status.FORBIDDEN).entity("No valid bearer token for " + user).build());
+        throw new WebApplicationException(Response.status(Status.UNAUTHORIZED).entity("No valid bearer token for " + user).build());
       }
       else
       {
-        throw new WebApplicationException(Response.status(Status.FORBIDDEN).entity("Unable to authenticate " + exception.getLocalizedMessage()).build());
+        throw new WebApplicationException(Response.status(Status.UNAUTHORIZED).entity("Unable to authenticate " + exception.getLocalizedMessage()).build());
       }
     }
   }
