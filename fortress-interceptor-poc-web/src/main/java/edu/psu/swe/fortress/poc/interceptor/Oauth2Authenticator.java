@@ -1,6 +1,7 @@
 package edu.psu.swe.fortress.poc.interceptor;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +22,6 @@ import javax.ws.rs.ext.Provider;
 import edu.psu.javaee.libraries.oauth.data.TokenInfoDto;
 import edu.psu.javaee.services.propertiesservice.services.PropertiesService;
 import edu.psu.javaee.services.propertiesservice.util.PropertyServiceFactory;
-import edu.psu.swe.fortress.poc.interceptor.Oauth2Protected;
 
 @Provider
 @Oauth2Protected
@@ -35,6 +35,10 @@ public class Oauth2Authenticator implements ContainerRequestFilter
   
   private String authEnpoint_;
   private String applicationName_;
+  private String bearerToken_ = null;
+  private String sharedSecret_;
+  private String refreshToken_;
+  private Date bearerTokenExpiration_;
   
   @Override
   public void filter(ContainerRequestContext requestContext) throws IOException
@@ -45,7 +49,7 @@ public class Oauth2Authenticator implements ContainerRequestFilter
 
     try
     {
-      String authUrl = authEnpoint_ + "/" + bearerToken;
+      String authUrl = authEnpoint_ + "/tokenInfo/" + bearerToken;
       
       Client client = ClientBuilder.newClient();
       TokenInfoDto dto =  client.target(authUrl)
@@ -78,5 +82,6 @@ public class Oauth2Authenticator implements ContainerRequestFilter
     Properties properties = propertiesService.getProperties("oauth2.properties");
     authEnpoint_ = properties.getProperty("oauth2.authorization.server.endpoint");
     applicationName_ = properties.getProperty("oauth2.authorization.application.name");
+    sharedSecret_ = properties.getProperty("oath2.authorization.shared.secret");
   }
 }
